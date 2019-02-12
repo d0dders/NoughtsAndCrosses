@@ -60,7 +60,7 @@ namespace NoughtsAndCrosses
 
 
 
-                //Check for win etc
+                //Check for end of game
                 if (places[0] == places[1] && places[1] == places[2] ||
                     places[3] == places[4] && places[4] == places[5] ||
                     places[6] == places[7] && places[7] == places[8] ||
@@ -71,8 +71,16 @@ namespace NoughtsAndCrosses
                     places[2] == places[4] && places[4] == places[6])
                 {
                     DrawBoard(places);
-                    Console.WriteLine("YOU WON!!!! Press any key to quit");
+                    Console.WriteLine("YOU WON!!!! Press ENTER to quit");
                     Console.Read();
+                    break;
+                }
+                //Check for draw
+                else if(turnCount > 9)
+                {
+                    DrawBoard(places);
+                    Console.WriteLine("It was a draw! Press ENTER to quit");
+                    Console.ReadLine();
                     break;
                 }
 
