@@ -8,23 +8,17 @@ namespace NoughtsAndCrosses
 {
     class Program
     {
-        static string[] places = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        static string[] board = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
         static void Main(string[] args)
         {
-
-            //Ask for players name
-            Console.WriteLine("What is your name?");
-            string playerName = Console.ReadLine();
-            Console.WriteLine("Hi " + playerName + ", you are crosses!");
-            
 
             int turnCount = 1;
             while(true)
             {
 
                 //Draw gameboard
-                DrawBoard(places);
+                DrawBoard(board);
                 //Get Players move
                 if (turnCount % 2 == 0)
                 {
@@ -32,8 +26,8 @@ namespace NoughtsAndCrosses
                     Console.WriteLine("Type the number of the square you want to take:");
                     string Move = Console.ReadLine();
                     if (IsMoveValid(Move))
-                    {                    
-                        places[int.Parse(Move) - 1] = "O";
+                    {
+                        SubmitMove(Move, "O");
                         turnCount++;
                     }
                     else
@@ -49,7 +43,7 @@ namespace NoughtsAndCrosses
                     string Move = Console.ReadLine();
                     if (IsMoveValid(Move))
                     {
-                        places[int.Parse(Move) - 1] = "X";
+                        SubmitMove(Move, "X");
                         turnCount++;
                     }
                     else
@@ -63,16 +57,16 @@ namespace NoughtsAndCrosses
 
 
                 //Check for end of game
-                if (places[0] == places[1] && places[1] == places[2] ||
-                    places[3] == places[4] && places[4] == places[5] ||
-                    places[6] == places[7] && places[7] == places[8] ||
-                    places[0] == places[3] && places[3] == places[6] ||
-                    places[1] == places[4] && places[4] == places[7] ||
-                    places[2] == places[5] && places[5] == places[8] ||
-                    places[0] == places[4] && places[4] == places[8] ||
-                    places[2] == places[4] && places[4] == places[6])
+                if (board[0] == board[1] && board[1] == board[2] ||
+                    board[3] == board[4] && board[4] == board[5] ||
+                    board[6] == board[7] && board[7] == board[8] ||
+                    board[0] == board[3] && board[3] == board[6] ||
+                    board[1] == board[4] && board[4] == board[7] ||
+                    board[2] == board[5] && board[5] == board[8] ||
+                    board[0] == board[4] && board[4] == board[8] ||
+                    board[2] == board[4] && board[4] == board[6])
                 {
-                    DrawBoard(places);
+                    DrawBoard(board);
                     Console.WriteLine("YOU WON!!!! Press ENTER to quit");
                     Console.Read();
                     break;
@@ -80,7 +74,7 @@ namespace NoughtsAndCrosses
                 //Check for draw
                 else if(turnCount > 9)
                 {
-                    DrawBoard(places);
+                    DrawBoard(board);
                     Console.WriteLine("It was a draw! Press ENTER to quit");
                     Console.ReadLine();
                     break;
@@ -104,7 +98,13 @@ namespace NoughtsAndCrosses
         static bool IsMoveValid(String Move)
         {
             int place = int.Parse(Move);
-            return places[place - 1] != "X" && places[place - 1] != "O";
+            return board[place - 1] != "X" && board[place - 1] != "O";
+        }
+
+        static void SubmitMove(String Move, string Player)
+        {
+            int place = int.Parse(Move);
+            board[int.Parse(Move) - 1] = Player;
         }
     }
 }
