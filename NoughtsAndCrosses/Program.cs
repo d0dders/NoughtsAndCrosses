@@ -12,22 +12,28 @@ namespace NoughtsAndCrosses
 
         static void Main(string[] args)
         {
+            Console.WriteLine("How would you like to play?");
+            Console.WriteLine("---------------------------");
+            Console.WriteLine("1. Against the computer");
+            Console.WriteLine("2. Against a friend");
+            int numberOfPlayers = int.Parse(Console.ReadLine());
 
             int turnCount = 1;
             while(true)
             {
+                
 
                 //Draw gameboard
                 DrawBoard(board);
                 //Get Players move
-                if (turnCount % 2 == 0)
+                if (turnCount % 2 == 1)
                 {
-                    Console.WriteLine("Player 2 - O");
+                    Console.WriteLine("Player 2 - X");
                     Console.WriteLine("Type the number of the square you want to take:");
                     string Move = Console.ReadLine();
                     if (IsMoveValid(Move))
                     {
-                        SubmitMove(Move, 'O');
+                        SubmitMove(Move, 'X');
                         turnCount++;
                     }
                     else
@@ -38,12 +44,21 @@ namespace NoughtsAndCrosses
                 } 
                 else
                 {
-                    Console.WriteLine("Player 1 - X");
-                    Console.WriteLine("Type the number of the square you want to take:");
-                    string Move = Console.ReadLine();
+                    string Move = "";
+                    if (numberOfPlayers == 2)
+                    {
+                        Console.WriteLine("Player 1 - O");
+                        Console.WriteLine("Type the number of the square you want to take:");
+                        Move = Console.ReadLine();
+                    }
+                    else
+                    {
+                        //generateMove
+                        Move = GenerateMove();
+                    }
                     if (IsMoveValid(Move))
                     {
-                        SubmitMove(Move, 'X');
+                        SubmitMove(Move, 'O');
                         turnCount++;
                     }
                     else
@@ -67,6 +82,7 @@ namespace NoughtsAndCrosses
                     board[2] == board[4] && board[4] == board[6])
                 {
                     DrawBoard(board);
+                    //TODO - currenty this displays if the computer wins as well.
                     Console.WriteLine("YOU WON!!!! Press ENTER to quit");
                     Console.Read();
                     break;
@@ -82,6 +98,21 @@ namespace NoughtsAndCrosses
 
             }
 
+        }
+
+        private static string GenerateMove()
+        {
+            Random random = new Random();
+            String move = "";
+            while (true)
+            {
+                move = random.Next(1, 9).ToString();
+                if (IsMoveValid(move))
+                {
+                    return move;
+                }
+            }
+            
         }
 
         static void DrawBoard(char[] places)
