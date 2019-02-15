@@ -8,6 +8,8 @@ namespace NoughtsAndCrosses
 {
     class Program
     {
+        static string[] places = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
         static void Main(string[] args)
         {
 
@@ -15,7 +17,7 @@ namespace NoughtsAndCrosses
             Console.WriteLine("What is your name?");
             string playerName = Console.ReadLine();
             Console.WriteLine("Hi " + playerName + ", you are crosses!");
-            string[] places = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+            
 
             int turnCount = 1;
             while(true)
@@ -28,10 +30,10 @@ namespace NoughtsAndCrosses
                 {
                     Console.WriteLine("Player 2 - O");
                     Console.WriteLine("Type the number of the square you want to take:");
-                    int place = int.Parse(Console.ReadLine());
-                    if (places[place - 1] != "X" && places[place - 1] != "O")
-                    {
-                        places[place - 1] = "O";
+                    string Move = Console.ReadLine();
+                    if (IsMoveValid(Move))
+                    {                    
+                        places[int.Parse(Move) - 1] = "O";
                         turnCount++;
                     }
                     else
@@ -44,16 +46,16 @@ namespace NoughtsAndCrosses
                 {
                     Console.WriteLine("Player 1 - X");
                     Console.WriteLine("Type the number of the square you want to take:");
-                    int place = int.Parse(Console.ReadLine());
-                    if (places[place - 1] != "X" && places[place - 1] != "O")
+                    string Move = Console.ReadLine();
+                    if (IsMoveValid(Move))
                     {
-                        places[place - 1] = "X";
+                        places[int.Parse(Move) - 1] = "X";
                         turnCount++;
                     }
                     else
                     {
                         Console.WriteLine("That square is already taken!");
-                        
+
                     }
                 }
 
@@ -97,6 +99,12 @@ namespace NoughtsAndCrosses
             Console.WriteLine("---|---|---");
             Console.WriteLine($" {places[6]} | {places[7]} | {places[8]} ");
             Console.WriteLine();
+        }
+
+        static bool IsMoveValid(String Move)
+        {
+            int place = int.Parse(Move);
+            return places[place - 1] != "X" && places[place - 1] != "O";
         }
     }
 }
