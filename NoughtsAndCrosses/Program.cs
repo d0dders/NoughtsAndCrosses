@@ -8,7 +8,7 @@ namespace NoughtsAndCrosses
 {
     class Program
     {
-        static string[] board = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        static char[] board = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
         static void Main(string[] args)
         {
@@ -27,12 +27,12 @@ namespace NoughtsAndCrosses
                     string Move = Console.ReadLine();
                     if (IsMoveValid(Move))
                     {
-                        SubmitMove(Move, "O");
+                        SubmitMove(Move, 'O');
                         turnCount++;
                     }
                     else
                     {
-                        Console.WriteLine("That square is already taken!");
+                        Console.WriteLine("That was an invalid move");
                        
                     }
                 } 
@@ -43,12 +43,12 @@ namespace NoughtsAndCrosses
                     string Move = Console.ReadLine();
                     if (IsMoveValid(Move))
                     {
-                        SubmitMove(Move, "X");
+                        SubmitMove(Move, 'X');
                         turnCount++;
                     }
                     else
                     {
-                        Console.WriteLine("That square is already taken!");
+                        Console.WriteLine("That was an invalid move");
 
                     }
                 }
@@ -84,7 +84,7 @@ namespace NoughtsAndCrosses
 
         }
 
-        static void DrawBoard(string[] places)
+        static void DrawBoard(char[] places)
         {
             Console.WriteLine();
             Console.WriteLine($" {places[0]} | {places[1]} | {places[2]} ");
@@ -97,11 +97,21 @@ namespace NoughtsAndCrosses
 
         static bool IsMoveValid(String Move)
         {
-            int place = int.Parse(Move);
-            return board[place - 1] != "X" && board[place - 1] != "O";
+            bool isValid = false;
+            if (int.TryParse(Move, out int place))
+            {
+                if (place >= 1 && place <= 9)
+                {
+                    isValid = board[place - 1] != 'X' && board[place - 1] != 'O';
+                }
+            }
+           
+            return isValid;
+            
+            
         }
 
-        static void SubmitMove(String Move, string Player)
+        static void SubmitMove(String Move, char Player)
         {
             int place = int.Parse(Move);
             board[int.Parse(Move) - 1] = Player;
