@@ -30,14 +30,8 @@ namespace NoughtsAndCrosses
                 //Draw gameboard
                 DrawBoard(board);
                 //Get Players move
-                if (turnCount % 2 == 1)
-                {
-                    playerTurn = 'X';
-                }
-                else
-                {
-                    playerTurn = 'O';
-                }
+                playerTurn = turnCount % 2 == 1 ? 'X' : 'O';
+                
                 string Move;
                 if (playerTurn == 'O' && numberOfPlayers == 1)
                 {
