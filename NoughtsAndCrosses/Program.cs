@@ -28,11 +28,12 @@ namespace NoughtsAndCrosses
                 //Get Players move
                 if (turnCount % 2 == 1)
                 {
-                    Console.WriteLine("Player 2 - X");
+                    Console.WriteLine("Player 1 - X");
                     Console.WriteLine("Type the number of the square you want to take:");
                     string Move = Console.ReadLine();
                     if (IsMoveValid(Move))
                     {
+                        Console.Clear();
                         SubmitMove(Move, 'X');
                         turnCount++;
                     }
@@ -47,17 +48,18 @@ namespace NoughtsAndCrosses
                     string Move = "";
                     if (numberOfPlayers == 2)
                     {
-                        Console.WriteLine("Player 1 - O");
+                        Console.WriteLine("Player 2 - O");
                         Console.WriteLine("Type the number of the square you want to take:");
                         Move = Console.ReadLine();
                     }
                     else
                     {
-                        //generateMove
+                        //generateCPUMove
                         Move = GenerateMove();
                     }
                     if (IsMoveValid(Move))
                     {
+                        Console.Clear();
                         SubmitMove(Move, 'O');
                         turnCount++;
                     }
