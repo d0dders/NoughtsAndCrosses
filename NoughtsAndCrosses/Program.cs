@@ -17,6 +17,9 @@ namespace NoughtsAndCrosses
             Console.WriteLine("1. Against the computer");
             Console.WriteLine("2. Against a friend");
             int numberOfPlayers = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+
             char playerTurn;
 
             int turnCount = 1;
@@ -35,50 +38,33 @@ namespace NoughtsAndCrosses
                 {
                     playerTurn = 'O';
                 }
-                if (playerTurn == 'X')
+                string Move;
+                if (playerTurn == 'O' && numberOfPlayers == 1)
                 {
-                    Console.WriteLine("Player 1 - X");
-                    Console.WriteLine("Type the number of the square you want to take:");
-                    string Move = Console.ReadLine();
-                    if (IsMoveValid(Move))
-                    {
-                        Console.Clear();
-                        SubmitMove(Move, 'X');
-                        turnCount++;
-                    }
-                    else
-                    {
-                        Console.WriteLine("That was an invalid move");
-
-                    }
+                    //generateCPUMove
+                    Move = GenerateMove();
                 }
                 else
                 {
-                    string Move = "";
-                    if (numberOfPlayers == 2)
-                    {
-                        Console.WriteLine("Player 2 - O");
-                        Console.WriteLine("Type the number of the square you want to take:");
+                    Console.WriteLine("Player {0}", playerTurn);
+                    Console.WriteLine("Type the number of the square you want to take:");
                         Move = Console.ReadLine();
-                    }
-                    else
-                    {
-                        //generateCPUMove
-                        Move = GenerateMove();
-                    }
-                    if (IsMoveValid(Move))
-                    {
-                        Console.Clear();
-                        SubmitMove(Move, 'O');
-                        turnCount++;
-                    }
-                    else
-                    {
-                        Console.WriteLine("That was an invalid move");
-
-                    }
                 }
+                                                          
+                if (IsMoveValid(Move))
+                {
+                    Console.Clear();
+                    SubmitMove(Move, playerTurn);
+                    turnCount++;
+                }
+                else
+                {
+                    Console.WriteLine("That was an invalid move");
 
+                }
+                
+                
+                
 
 
 
